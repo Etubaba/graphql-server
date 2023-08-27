@@ -1,0 +1,35 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model game {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  title    String
+  platform String[]
+  reviews  reviews[]
+}
+
+model reviews {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  rating   Int
+  content  String
+  game     game   @relation(fields: [gameId], references: [id])
+  gameId   String @db.ObjectId
+  author   author @relation(fields: [authorId], references: [id])
+  authorId String @db.ObjectId
+}
+
+model author {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  verified Boolean
+  reviews  reviews[]
+}
