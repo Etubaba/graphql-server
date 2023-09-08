@@ -22,7 +22,7 @@ async function bootstrap() {
   prisma
     .$connect()
     .then(() => {
-      console.log("🚀 Database Connected====🔗🔗🔗🔗===>");
+      console.log("🚀 Database Connected==🔗🔗🔗🔗==>");
     })
     .catch((error) => {
       console.log(error.message);
